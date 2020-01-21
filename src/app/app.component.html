@@ -1,0 +1,68 @@
+<head>
+  <meta charset="utf-8" />
+  <link
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+</head>
+
+<body>
+  <h2>Met Hotels</h2>
+  <div class="main-container">
+    <h5 class="card-header info-color white-text text-center py-4"></h5>
+    <div class="card-body px-lg-5 pt-0">
+      <form class="text-center" action="#!">
+        <div class="md-form">
+          <label for="type" class="label">Hotel:</label>
+          <input
+            class="form-control"
+            style="text-align:center"
+            #newtitle
+            placeholder="Naziv hotela"
+            name="type"
+          />
+        </div>
+        <div class="md-form">
+          <label for="cena" class="label">Cena:</label>
+          <input
+            type="number"
+            class="form-control"
+            style="text-align:center"
+            #newprice
+            placeholder="cena"
+            name="cena"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="dodajHotel(newtitle, newprice)"
+        >
+          Dodaj
+        </button>
+        <button type="button" class="btn btn-primary" (click)="changeOrder()">
+          Promeni
+        </button>
+      </form>
+      <div>
+        <div class="md-form">
+          <h3>Pretraga po ceni</h3>
+          <input [(ngModel)]="price" class="form-control" placeholder="Cena" />
+        </div>
+        <div
+          class="container mt-5 mb-5"
+          *ngFor="let hotel of hotels | filter: price; index as i"
+        >
+          <app-hotels
+            class="container mt-5 mb-5"
+            (deleteHotel)="deleteHotel($event)"
+            (changeContent)="changeContent($event)"
+            [hotel]="hotel"
+          ></app-hotels>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
