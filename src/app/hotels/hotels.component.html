@@ -1,9 +1,14 @@
 <div>
-    <h4>Hotel: {{hotel.title}}</h4>
-    <p>Cena: {{hotel.price}}€</p>
-    <div>
-<div class="btns d-flex justify-content-between">
-    <a href ="#"  (click)="changeContent()"   class="btn btn-primary">Change content</a>
-    <a href ="#"  (click)="deleteHotel()"  class="btn btn-danger">Delete</a>
+  <h4>Hotel: {{ hotel.title }}</h4>
+  <h4>Cena: {{ hotel.price }}€</h4>
+  <h4>Nocenja: {{ hotel.nights }} dan(a)</h4>
+  <h4>Ukupna Cena: {{ hotel.getPrice(price, nights) }}€</h4>
+  <div>
+    <div class="btns d-flex justify-content-between">
+      <a href="#" (click)="changeContent()" class="btn btn-primary"
+        >Change content</a
+      >
+      <a href="#" (click)="deleteHotel()" class="btn btn-danger">Delete</a>
     </div>
-    
+  </div>
+</div>

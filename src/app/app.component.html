@@ -64,10 +64,33 @@
           <div>Cena je obavezna!</div>
         </div>
       </div>
+      <div>
+        <label for="price" class="labele">Nocenja:</label>
+        <input
+          required
+          id="nights"
+          type="number"
+          class="form-control"
+          style="text-align:center"
+          #newnights
+          placeholder="Broj nocenja"
+          name="nights"
+          formControlName="nocenjaHotelaForma"
+          [ngClass]="{
+            'is-invalid':
+              form.get('nocenjaHotelaForma').touched &&
+              form.get('nocenjaHotelaForma').invalid
+          }"
+        />
+        <div class="invalid-feedback">
+          <div>Unos za broj nocenja je obavezan!</div>
+        </div>
+      </div>
+
       <button
         type="button"
         class="btn btn-primary"
-        (click)="dodajHotel(newtitle, newprice)"
+        (click)="dodajHotel(newtitle, newprice, newnights)"
         [disabled]="!form.valid"
       >
         Potvrdi
