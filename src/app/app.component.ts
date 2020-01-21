@@ -1,29 +1,32 @@
 import { Hotels } from "./../hotels";
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
+import { Component, Input } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  MinLengthValidator
+} from "@angular/forms";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  @Input() hotels: Hotels[] = [
-    new Hotels("Hilton", 180),
-    new Hotels("Raddison", 200),
-    new Hotels("Square Nine", 300),
-    new Hotels("Hyat", 150),
-    new Hotels("Corwne Plaza", 200)
-  ];
-  constructor() {}
+  @Input() hotels: Hotels[];
+
+  constructor() {
+    this.hotels = [];
+  }
 
   dodajHotel(title: HTMLInputElement, price: HTMLInputElement): boolean {
-    console.log(title.value);
-    console.log(price.value);
+    console.log(
+      `Dodavanje hotela, naziv: ${title.value}, cena: ${price.value}`
+    );
     this.hotels.push(new Hotels(title.value, price.valueAsNumber));
     return false;
   }
 
-  public deleteHotel(hotels: Hotels): void {
+  public deleteHotel(hotels: Hotels) {
     this.hotels = this.hotels.filter(item => {
       return item.title !== hotels.title;
     });
@@ -40,29 +43,26 @@ export class AppComponent {
     return result;
   }
 
-  public changeContent(hotels: Hotels): void {
+  public changeContent(hotels: Hotels) {
     let index = this.hotels.findIndex(i => i.title === hotels.title);
     this.hotels[index].title = this._generateString(6);
   }
 
-  public changeOrder(): void {
-    this.hotels = this.shuffleArray(this.hotels);
+  shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
   }
 
-  public shuffleArray = function(array) {
-    var i = array.length,
-      j,
-      k;
+  changeOrder() {
+    this.shuffle(this.hotels);
+  }
 
-    while (i) {
-      k = Math.floor(Math.random() * i--);
-      j = array[i];
-      array[i] = array[k];
-      array[k] = j;
-    }
-
-    return array;
-  };
+  form = new FormGroup({
+    nazivHotelaForma: new FormControl("", [
+      Validators.required,
+      Validators.minLength(6)
+    ]),
+    cenaHotelaForma: new FormControl("", Validators.required)
+  });
 
   ngOnInit() {}
 }
